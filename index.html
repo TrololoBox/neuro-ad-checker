@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Проверка рекламы на нейромаркетинг</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container py-5 text-center">
+    <h2 class="mb-4">🧠 Проверка рекламы на нейромаркетинговые приёмы</h2>
+    <div class="mb-3">
+      <input type="url" class="form-control" id="adLink" placeholder="Вставьте ссылку на рекламу">
+    </div>
+    <button class="btn btn-primary" onclick="checkAd()">Проверить рекламу</button>
+    <div class="mt-4" id="result"></div>
+  </div>
+
+<script>
+const tactics = [
+  'Эмоциональные триггеры 😱',
+  'Эффект дефицита (FOMO) ⏳',
+  'Социальное доказательство (подражание) 👥',
+  'Принцип авторитета 🥼',
+  'Скрытые визуальные триггеры 👁️',
+  'Аудио-триггеры 🎵',
+  'Использование страхов и тревог 😨',
+  'Ассоциативное якорение 🧲'
+];
+
+function checkAd() {
+  let resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = '<div class="spinner-border text-primary"></div>';
+  
+  setTimeout(() => {
+    let isSafe = Math.random() > 0.5; // 50/50 chance
+    if (isSafe) {
+      resultDiv.innerHTML = '<h4 class="text-success">✅ Эта реклама безопасна</h4>';
+    } else {
+      let usedTactics = getRandomTactics();
+      resultDiv.innerHTML = '<h4 class="text-danger">⚠️ Эта реклама может быть опасна!</h4><ul class="list-group mt-3">' + usedTactics.map(t => `<li class="list-group-item">${t}</li>`).join('') + '</ul>';
+    }
+  }, 1500); // Имитация обработки 1.5 секунды
+}
+
+function getRandomTactics() {
+  let shuffled = tactics.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, Math.floor(Math.random() * tactics.length) + 1);
+}
+</script>
+
+</body>
+</html>
